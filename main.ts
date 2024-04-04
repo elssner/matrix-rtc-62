@@ -1,7 +1,10 @@
 function display64 (text: string) {
+    matrix.line(49, 0, 127, 47)
     matrix.line(49, 0, 127, 0)
     matrix.line(49, 47, 127, 47)
-    matrix.line(49, 0, 49, 48)
+    matrix.line(127, 47, 127, 0)
+    matrix.line(49, 0, 49, 47)
+    matrix.writeDigitImageArray(text, 53, 39, 7, -4, matrix.eTransparent.t)
 }
 function display128 (text: string) {
     matrix.clearMatrix()
@@ -29,11 +32,11 @@ loops.everyInterval(1000, function () {
     if (rtcpcf85063tp.isChanged(rtcpcf85063tp.rtcpcf85063tp_eRegister(rtcpcf85063tp.eRegister.Sekunde))) {
         matrix.clearMatrix(0, 5)
         matrix.writeClock_radius24(24, 23, rtcpcf85063tp.getByte(rtcpcf85063tp.rtcpcf85063tp_eRegister(rtcpcf85063tp.eRegister.Stunde), rtcpcf85063tp.eFormat.DEC), rtcpcf85063tp.getByte(rtcpcf85063tp.rtcpcf85063tp_eRegister(rtcpcf85063tp.eRegister.Minute), rtcpcf85063tp.eFormat.DEC))
-        display64(rtcpcf85063tp.getDate(rtcpcf85063tp.ePart.ohne, rtcpcf85063tp.ePart.ohne))
+        display64(rtcpcf85063tp.getDate(rtcpcf85063tp.ePart.ohne, rtcpcf85063tp.ePart.mit))
         matrix.writeDisplay(0, 5, matrix.eI2C.I2C_x3D)
     }
     matrix.clearMatrix(6, 7)
-    matrix.writeDigitImageArray(rtcpcf85063tp.getTime(rtcpcf85063tp.ePart.mit), 1, 49, 11, 0, matrix.eTransparent.u, matrix.oled_eFaktor(matrix.eFaktor.f2))
+    matrix.writeDigitImageArray(rtcpcf85063tp.getTime(rtcpcf85063tp.ePart.mit), 1, 49, 16, 0, matrix.eTransparent.u, matrix.oled_eFaktor(matrix.eFaktor.f2))
     matrix.writeDisplay(6, 7, matrix.eI2C.I2C_x3D)
     display128(rtcpcf85063tp.getTime(rtcpcf85063tp.ePart.ohne))
 })
