@@ -23,6 +23,12 @@ function display128 (text: string) {
 input.onButtonEvent(Button.A, input.buttonEventClick(), function () {
     rtcpcf85063tp.writeDateTime(rtcpcf85063tp.rtcpcf85063tp_eADDR(rtcpcf85063tp.eADDR.RTC_x51), rtcpcf85063tp.rtcpcf85063tp_eRegister(rtcpcf85063tp.eRegister.Sekunde), [0, -1 + rtcpcf85063tp.getByte(rtcpcf85063tp.rtcpcf85063tp_eRegister(rtcpcf85063tp.eRegister.Minute), rtcpcf85063tp.eFormat.DEC)])
 })
+input.onButtonEvent(Button.AB, input.buttonEventClick(), function () {
+    matrix.clearMatrix()
+    matrix.fillScreen(matrix.matrix_eEEPROM_Startadresse(matrix.eEEPROM_Startadresse.F800), 0, 7, matrix.eI2Ceeprom.EEPROM_x50)
+    matrix.fillScreen(matrix.matrix_eEEPROM_Startadresse(matrix.eEEPROM_Startadresse.F800), 8, 15, matrix.eI2Ceeprom.EEPROM_x50)
+    matrix.writeDisplay()
+})
 input.onButtonEvent(Button.B, input.buttonEventClick(), function () {
     rtcpcf85063tp.writeDateTime(rtcpcf85063tp.rtcpcf85063tp_eADDR(rtcpcf85063tp.eADDR.RTC_x51), rtcpcf85063tp.rtcpcf85063tp_eRegister(rtcpcf85063tp.eRegister.Sekunde), [0, 1 + rtcpcf85063tp.getByte(rtcpcf85063tp.rtcpcf85063tp_eRegister(rtcpcf85063tp.eRegister.Minute), rtcpcf85063tp.eFormat.DEC)])
 })
@@ -38,9 +44,9 @@ loops.everyInterval(1000, function () {
         matrix.writeClock_radius24(24, 23, rtcpcf85063tp.getByte(rtcpcf85063tp.rtcpcf85063tp_eRegister(rtcpcf85063tp.eRegister.Stunde), rtcpcf85063tp.eFormat.DEC), rtcpcf85063tp.getByte(rtcpcf85063tp.rtcpcf85063tp_eRegister(rtcpcf85063tp.eRegister.Minute), rtcpcf85063tp.eFormat.DEC))
         display64(rtcpcf85063tp.getDate(rtcpcf85063tp.ePart.ohne, rtcpcf85063tp.ePart.mit))
         matrix.writeDisplay(0, 5, matrix.eI2C.I2C_x3D)
+        display128(rtcpcf85063tp.getTime(rtcpcf85063tp.ePart.ohne))
     }
     matrix.clearMatrix(6, 7)
     matrix.writeDigitImageArray(rtcpcf85063tp.getTime(rtcpcf85063tp.ePart.mit), 1, 49, 16, 0, matrix.eTransparent.u, matrix.oled_eFaktor(matrix.eFaktor.f2))
     matrix.writeDisplay(6, 7, matrix.eI2C.I2C_x3D)
-    display128(rtcpcf85063tp.getTime(rtcpcf85063tp.ePart.ohne))
 })
