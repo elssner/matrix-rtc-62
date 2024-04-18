@@ -1,13 +1,10 @@
 function display64 () {
-    matrix.line(50, 0, 127, 0)
-    matrix.line(50, 47, 127, 47)
-    matrix.line(127, 47, 127, 0)
-    matrix.line(50, 0, 50, 47)
+    matrix.writeClock(24, 23, 24, rtcpcf85063tp.getByte(rtcpcf85063tp.rtcpcf85063tp_eRegister(rtcpcf85063tp.eRegister.Stunde), rtcpcf85063tp.eFormat.DEC), rtcpcf85063tp.getByte(rtcpcf85063tp.rtcpcf85063tp_eRegister(rtcpcf85063tp.eRegister.Minute), rtcpcf85063tp.eFormat.DEC))
+    matrix.rectangle(127, 47, 50, 0)
     matrix.writeTextEEPROM(5, 7, rtcpcf85063tp.getDate(rtcpcf85063tp.ePart.ohne, rtcpcf85063tp.ePart.mit), 7, -4, matrix.eTransparent.t)
 }
 function display128 () {
-    matrix.clearMatrix()
-    matrix.rasterCircle(64, 64, 63)
+    matrix.writeClock(64, 64, 63, rtcpcf85063tp.getByte(rtcpcf85063tp.rtcpcf85063tp_eRegister(rtcpcf85063tp.eRegister.Stunde), rtcpcf85063tp.eFormat.DEC), rtcpcf85063tp.getByte(rtcpcf85063tp.rtcpcf85063tp_eRegister(rtcpcf85063tp.eRegister.Minute), rtcpcf85063tp.eFormat.DEC))
     matrix.rasterCircle(64, 96, 31)
     matrix.line(64, 64, 127, 127)
     matrix.writeTextEEPROM(0, 0, rtcpcf85063tp.getTime(rtcpcf85063tp.ePart.ohne))
@@ -39,10 +36,10 @@ loops.everyInterval(1000, function () {
     if (rtcpcf85063tp.isChanged(rtcpcf85063tp.rtcpcf85063tp_eRegister(rtcpcf85063tp.eRegister.Minute))) {
         matrix.comment("6 blaue Zeilen")
         matrix.clearMatrix(0, 5)
-        matrix.writeClock(24, 23, 24, rtcpcf85063tp.getByte(rtcpcf85063tp.rtcpcf85063tp_eRegister(rtcpcf85063tp.eRegister.Stunde), rtcpcf85063tp.eFormat.DEC), rtcpcf85063tp.getByte(rtcpcf85063tp.rtcpcf85063tp_eRegister(rtcpcf85063tp.eRegister.Minute), rtcpcf85063tp.eFormat.DEC))
         display64()
         matrix.displayMatrix(0, 5, matrix.eI2C.I2C_x3D)
         matrix.comment("großes Display")
+        matrix.clearMatrix()
         display128()
         matrix.displayMatrix()
     }
